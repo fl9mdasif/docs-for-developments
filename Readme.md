@@ -33,7 +33,7 @@ There are `4 types of operators` in mongodb
 3. Aggregation pipeline
 4. Bitwise Update operator
 
-### Some basic queries: from Query and projection operator
+### Some basic queries: from Query and projection operator `$insert,  $insertOne, $insertMany, $find, $findOne`
 
 - db.collection.insertOne({name:"Asif"}) // single obj
 - db.collection.insertMany([{name:"Asif"}]) // array of ojb
@@ -48,8 +48,7 @@ There are `4 types of operators` in mongodb
 - db.inventory.find( { age: { $gte: 20 } } ) // greeter than and equal 20
 - db.inventory.find( { age: { $lt: 18 } } ) // less than 18
 - db.inventory.find( { age: { $lte: 18 } } ) // less than 18
-
-* db.practice_q.find({gender:"Female", age:{$gt:20,$lt:35}},{age:1}).sort({age:1}) //multiple condition
+- db.practice_q.find({gender:"Female", age:{$gt:20,$lt:35}},{age:1}).sort({age:1}) //multiple condition
 
 `$in & $nin` // checks if it is in or not in
 To specify an $in expression, use the following prototype:
