@@ -40,7 +40,11 @@ There are `4 types of operators` in mongodb
 - db.practice_q.find({}) // find all data
 - db.practice_q.find({age:18}) // find if age = 18
 - db.practice_q.find({age:18},{age:1}) // field filtering find if age = 18 and shows only the age `key/field/property` from data
-- db.practice_q.find({age:18}).project({name:1, age:1}) // field filtering with project and shows only the name & age key from data
+-
+
+```mongodb
+db.practice_q.find({age:18}).project({name:1, age:1}) // field filtering with project and shows only the name & age key from data
+```
 
 ### 1.1 comparison Query operators `$gt, $gte, $lt, $lte`
 
