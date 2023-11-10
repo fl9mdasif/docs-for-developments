@@ -70,4 +70,86 @@ syntax: { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
   interests: { $in: ["Cooking"] }}) // Implicit and
 ```
 
-### 1.2 Logical query operators
+### 1.2 Logical query operators `$and, $or`
+
+```mongodb
+// explicit `and` operator
+
+// { $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
+
+db.practice_q.find({
+ $and: [
+    { age: { $gt: 15 } },
+    { age: { $lt: 36 } },
+    {gender:"Female"}
+    ] }).project({age:1}).sort({ age: 1 })
+
+// `or` operator
+
+// implicit or
+
+db.practice_q.find({
+    "skills.name":{$in:["JAVASCRIPT","PYTHON"]}})
+    .project({skills:1}).sort({ age: 1 })
+
+// explicit or operator
+
+db.practice_q.find({
+    $or:[
+        {"skills.name":"JAVASCRIPT"},
+        {"skills.name":"PYTHON"}
+        ]
+}).project({skills:1}).sort({ age: 1 })
+```
+
+### 1.3 Element query operators `$exists, $type, $size`
+
+```mongodb
+// `exists`
+
+db.practice_q.find({company:{$exists:true,}})
+    .project({company:1}).sort({ age: 1 })
+
+// `type`
+
+db.practice_q.find({friends:{ $type:"array"}})
+    .project({friends:1}).sort({ age: 1 })
+
+```
+
+### 1.4 Array operator `$size, $all, $elemMatch`
+
+```mongodb
+
+// `size`
+
+db.practice_q.find({friends:{ $size:5}})
+    .project({friends:1}).sort({ age: 1 })
+
+
+// `array` index position
+
+db.practice_q.find({"interests.2":"Cooking"})
+    .project({interests:1}).sort({ age: 1 })
+
+
+// `all` operator don't looks array positions just return true result
+
+db.practice_q.find({interests:{ $all:["Cooking"]}})
+    .project({interests:1}).sort({ age: 1 })
+
+
+// `elemMatch` operator checks all fields
+db.practice_q.find(
+    {
+        skills: {
+            $elemMatch: {
+                name: "JAVASCRIPT",
+                level: "Intermidiate"
+            }
+        }
+    }).project({ skills: 1,  }).sort({ age: 1 })
+
+
+
+```
