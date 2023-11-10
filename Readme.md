@@ -35,35 +35,39 @@ There are `4 types of operators` in mongodb
 
 ### Some basic queries: from Query and projection operator `$insert,  $insertOne, $insertMany, $find, $findOne`
 
-- db.collection.insertOne({name:"Asif"}) // single obj
-- db.collection.insertMany([{name:"Asif"}]) // array of ojb
-- db.practice_q.find({}) // find all data
-- db.practice_q.find({age:18}) // find if age = 18
-- db.practice_q.find({age:18},{age:1}) // field filtering find if age = 18 and shows only the age `key/field/property` from data
--
-
 ```mongodb
+ db.collection.insertOne({name:"Asif"}) // single obj
+ db.collection.insertMany([{name:"Asif"}]) // array of ojb
+ db.practice_q.find({}) // find all data
+ db.practice_q.find({age:18}) // find if age = 18
+ db.practice_q.find({age:18},{age:1}) // field filtering find if age = 18 and shows only the age `key/field/property` from data
+
+
 db.practice_q.find({age:18}).project({name:1, age:1}) // field filtering with project and shows only the name & age key from data
 ```
 
 ### 1.1 comparison Query operators `$gt, $gte, $lt, $lte`
 
-- db.inventory.find( { age: { $gt: 20 } } ) // greeter than 20
-- db.inventory.find( { age: { $gte: 20 } } ) // greeter than and equal 20
-- db.inventory.find( { age: { $lt: 18 } } ) // less than 18
-- db.inventory.find( { age: { $lte: 18 } } ) // less than 18
-- db.practice_q.find({gender:"Female", age:{$gt:20,$lt:35}},{age:1}).sort({age:1}) //multiple condition
+```mongodb
+ db.inventory.find( { age: { $gt: 20 } } ) // greeter than 20
+ db.inventory.find( { age: { $gte: 20 } } ) // greeter than and equal 20
+ db.inventory.find( { age: { $lt: 18 } } ) // less than 18
+ db.inventory.find( { age: { $lte: 18 } } ) // less than 18
+ db.practice_q.find({gender:"Female", age:{$gt:20,$lt:35}},{age:1}).sort({age:1}) //multiple condition
+```
 
 `$in & $nin` // checks if it is in or not in
 To specify an $in expression, use the following prototype:
 syntax: { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
 
-- db.inventory.find( { age: { $in: [18,20] } } ) // checks age field is either 18 or 20.
-- db.inventory.find( { age: { $in: [18,26] } } ,{age:1}) // checks age field is either 18 or 20.
+```mongodb
+ db.inventory.find( { age: { $in: [18,20] } } ) // checks age field is either 18 or 20.
+ db.inventory.find( { age: { $in: [18,26] } } ,{age:1}) // checks age field is either 18 or 20.
 
-* db.practice_q.find({
+ db.practice_q.find({
   gender: "Female",
   age: { $in: [18, 24, 26, 32, 30] },
   interests: { $in: ["Cooking"] }}) // Implicit and
+```
 
 ### 1.2 Logical query operators
