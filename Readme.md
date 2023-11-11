@@ -56,9 +56,9 @@ db.practice_q.find({age:18}).project({name:1, age:1}) // field filtering with pr
  db.practice_q.find({gender:"Female", age:{$gt:20,$lt:35}},{age:1}).sort({age:1}) //multiple condition
 ```
 
-`$in & $nin` // checks if it is in or not in
-To specify an $in expression, use the following prototype:
-syntax: { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
+- `$in & $nin` // checks if it is in or not in
+  To specify an $in expression, use the following prototype:
+  syntax: { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
 
 ```mongodb
  db.inventory.find( { age: { $in: [18,20] } } ) // checks age field is either 18 or 20.
@@ -72,22 +72,22 @@ syntax: { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
 
 ### 1.2 Logical query operators `$and, $or`
 
+- explicit `and` operator
+- syntax { $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
+
 ```mongodb
-// explicit `and` operator
-
-// { $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
-
 db.practice_q.find({
  $and: [
-    { age: { $gt: 15 } },
-    { age: { $lt: 36 } },
-    {gender:"Female"}
-    ] }).project({age:1}).sort({ age: 1 })
+            { age: { $gt: 15 } },
+            { age: { $lt: 36 } },
+            {gender:"Female"}
+       ] }).project({age:1}).sort({ age: 1 })
+```
 
-// `or` operator
+- `or` operator
+  // implicit or
 
-// implicit or
-
+```mongodb
 db.practice_q.find({
     "skills.name":{$in:["JAVASCRIPT","PYTHON"]}})
     .project({skills:1}).sort({ age: 1 })
@@ -96,21 +96,25 @@ db.practice_q.find({
 
 db.practice_q.find({
     $or:[
-        {"skills.name":"JAVASCRIPT"},
-        {"skills.name":"PYTHON"}
+            {"skills.name":"JAVASCRIPT"},
+            {"skills.name":"PYTHON"}
         ]
 }).project({skills:1}).sort({ age: 1 })
 ```
 
-### 1.3 Element query operators `$exists, $type, $size`
+### 1.3 Element query operators `$exists, $type`
+
+- `$exists` check if value is exists
 
 ```mongodb
-// `exists`
 
 db.practice_q.find({company:{$exists:true,}})
     .project({company:1}).sort({ age: 1 })
+```
 
-// `type`
+- `type` checks type of the field
+
+```mongodb
 
 db.practice_q.find({friends:{ $type:"array"}})
     .project({friends:1}).sort({ age: 1 })
@@ -119,27 +123,30 @@ db.practice_q.find({friends:{ $type:"array"}})
 
 ### 1.4 Array operator `$size, $all, $elemMatch`
 
+// `size` checks the array size
+
 ```mongodb
-
-// `size`
-
 db.practice_q.find({friends:{ $size:5}})
     .project({friends:1}).sort({ age: 1 })
+```
 
+// `array` index position with dot notation
 
-// `array` index position
-
+```mongodb
 db.practice_q.find({"interests.2":"Cooking"})
     .project({interests:1}).sort({ age: 1 })
+```
 
+- `$all` operator don't looks array positions just return true result
 
-// `all` operator don't looks array positions just return true result
-
+```mongodb
 db.practice_q.find({interests:{ $all:["Cooking"]}})
     .project({interests:1}).sort({ age: 1 })
+```
 
+- `$elemMatch` operator checks all fields of obj
 
-// `elemMatch` operator checks all fields
+```mongodb
 db.practice_q.find(
     {
         skills: {
@@ -150,13 +157,11 @@ db.practice_q.find(
         }
     }).project({ skills: 1,  }).sort({ age: 1 })
 
-
-
 ```
 
-## 2. Update operator `$set,$addToSet, $push`
+## 2. Update operator `$set, $addToSet, $push, $pop, $pull, $pullAll, $inc`
 
-`// $set operator`
+- `$set` operator update a field
 
 ```mongodb
 db.practice_q.updateOne(
@@ -165,7 +170,7 @@ db.practice_q.updateOne(
         $set: {
             "name.firstName": "Asif", "name.lastName": "AL AZAD",
             "address.city": "Dhaka",
-            gender:"Male",
+             gender:"Male",
             "friends.0": "Aronno", // update only array 0 index
             "skills.0.name": "Next level dev", // array of obj
             languages: ["Bangla", "English"] // update full array
@@ -173,30 +178,106 @@ db.practice_q.updateOne(
     }
 )
 
+// .$ update the first element of an array
 
-// The `$addToSet` operator adds a value to an array unless the value is already present,
-// in which case $addToSet does nothing to that array.
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065"), "skills.level": "Expert" },
+    {
+        $set: {
+            "skills.$.isLearning": false // update the first element
+        }
+    }
+)
+
+```
+
+- The `$addToSet` operator adds a value to an array unless the value is already present,
+  // in which case $addToSet does nothing to that array.
+
+```mongodb
 db.practice_q.updateOne(
     { _id: ObjectId("6406ad63fc13ae5a40000065") },
     {
         $addToSet: { languages:"Hindi"} // set a new value to an array if value dose'nt exists
     }
 )
+```
 
+- `$each` modifier to add multiple elements to the tags array:
 
-// $each modifier to add multiple elements to the tags array:
+```mongodb
 db.practice_q.updateOne(
     { _id: ObjectId("6406ad63fc13ae5a40000065") },
     {
         $addToSet: { languages: { $each: ["Hindi", "China", "Urdu"]  } } // add multiple value to language array
     }
 )
+```
 
-// The $push operator appends a specified value to an array.
+- The `$unset` operator deletes a particular field.
+
+```mongodb
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {$unset:  {addrerr:""}}
+)
+
+```
+
+- The `$push` operator appends a specified value to an array.
+
+```mongodb
 db.practice_q.updateOne(
     { _id: ObjectId("6406ad63fc13ae5a40000065") },
     {
         $push: { languages: { $each: ["China", "Urdu"] } } // add multiple value to language array
     }
 )
+```
+
+- The `$pop` operator removes the first or last element of an array.
+  // Pass $pop a value of -1 to remove the first element of an array and
+  // 1 to remove the last element in an array.
+
+```mongodb
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {$pop:  {languages:1}}
+)
+```
+
+- The `$pull` operator delete from an existing array all instances of a value or values that match a specified condition.
+
+```mongodb
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {$pull:  {languages:"hjk"}} // remove hjk from array language
+)
+
+// `$pillAll`delete all matching value
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {$pullAll:  {languages:["China","Urdu"]}}
+)
+```
+
+- `$inc` operator
+
+```mongodb
+db.practice_q.updateMany(
+    { gender: "Male", age: { $gt: 20 } },
+    {
+        $inc: { age: 2 }
+    }
+)
+
+
+```
+
+```mongodb
+
+```
+
+```mongodb
+
 ```
