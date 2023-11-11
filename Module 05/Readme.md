@@ -270,6 +270,14 @@ db.practice_q.updateMany(
         $inc: { age: 2 }
     }
 )
+```
+
+- `$deleteOne` delete one documents
+
+```mongodb
+db.practice_q.deleteOne(
+    {_id : ObjectId("6406ad63fc13ae5a40000067")}
+)
 
 
 ```
