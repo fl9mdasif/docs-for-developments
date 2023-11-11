@@ -153,3 +153,50 @@ db.practice_q.find(
 
 
 ```
+
+## 2. Update operator `$set,$addToSet, $push`
+
+`// $set operator`
+
+```mongodb
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $set: {
+            "name.firstName": "Asif", "name.lastName": "AL AZAD",
+            "address.city": "Dhaka",
+            gender:"Male",
+            "friends.0": "Aronno", // update only array 0 index
+            "skills.0.name": "Next level dev", // array of obj
+            languages: ["Bangla", "English"] // update full array
+        }
+    }
+)
+
+
+// The `$addToSet` operator adds a value to an array unless the value is already present,
+// in which case $addToSet does nothing to that array.
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $addToSet: { languages:"Hindi"} // set a new value to an array if value dose'nt exists
+    }
+)
+
+
+// $each modifier to add multiple elements to the tags array:
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $addToSet: { languages: { $each: ["Hindi", "China", "Urdu"]  } } // add multiple value to language array
+    }
+)
+
+// The $push operator appends a specified value to an array.
+db.practice_q.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $push: { languages: { $each: ["China", "Urdu"] } } // add multiple value to language array
+    }
+)
+```
