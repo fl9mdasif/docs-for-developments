@@ -201,11 +201,50 @@ db.practice_q.aggregate(
 
 ```
 
+- `$bucket` operator checks value between given value. crates a boundary
+
 ```mongodb
+db.practice_q.aggregate(
+    [
+        {$bucket:{
+            groupBy:"$age",  // creates groups
+            boundaries:[20,40,60,80], // checks 0-19, 20-39, 40-59, 60-79 porjonto kotojon asd
+            default:"greter than 80", // baki ja value ase
+            output:{
+                count:{$sum:1},
+                seeTheirName:{$push:"$name"} // return the names of the ages
+            }
+        }}
+    ]
+)
 
 ```
 
+- `$bucket` with `sort`, `$limit`
+
 ```mongodb
+db.practice_q.aggregate(
+    [
+        // stage 1
+        {
+            $bucket: {
+                groupBy: "$age",
+                boundaries: [20, 40, 60, 80], // checks 0-19, 20-39, 40-59, 60-79 porjonto kotojon asd
+                default: "greter than 80",
+                output: {
+                    count: { $sum: 1 },
+                    seeTheirName: { $push: "$$ROOT" } // return the names of the ages
+                }
+            }
+        },
+        // stage 2
+        { $sort: { count: 1 } }, //
+        // stage 3 $limit used to return the limit of data
+        { $limit: 3 }, // you must use the $limit stage just after the $sort
+        // stage 4
+        { $project: { count: 1 } }
+    ]
+)
 
 ```
 
