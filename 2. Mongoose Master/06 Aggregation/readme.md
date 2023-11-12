@@ -131,7 +131,7 @@ db.practice_q.aggregate(
 - `$max, $min, $avg, $subtract ` operator
 
 ```mongodb
-.practice_q.aggregate(
+db.practice_q.aggregate(
     [
         {
             $group: {
@@ -186,6 +186,18 @@ db.practice_q.aggregate(
 ```
 
 ```mongodb
+db.practice_q.aggregate(
+    [
+        { $unwind: "$interests" },
+        {
+            $group:
+            {
+                _id: "$age", interestPerAge: { $push: "$interests" }  // age er upor depends kore interest ber kora
+            }
+        }
+    ]
+)
+
 
 ```
 
