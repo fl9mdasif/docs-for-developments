@@ -39,7 +39,7 @@ There are `4 types of operators` in mongodb
  db.collection.insertOne({name:"Asif"}) // single obj
  db.collection.insertMany([{name:"Asif"}]) // array of ojb
  db.practice_q.find({}) // find all data
- db.practice_q.find({age:18}) // find if age = 18
+ db.practice_q.find({name:"Asif", age:18}) // find name= asif and if age = 18
  db.practice_q.find({age:18},{age:1}) // field filtering find if age = 18 and shows only the age `key/field/property` from data
 
 
@@ -137,7 +137,7 @@ db.practice_q.find({"interests.2":"Cooking"})
     .project({interests:1}).sort({ age: 1 })
 ```
 
-- `$all` operator don't looks array positions just return true result
+- `$all` operator don't looks array positions just return matched result
 
 ```mongodb
 db.practice_q.find({interests:{ $all:["Cooking"]}})
@@ -253,6 +253,18 @@ db.practice_q.updateOne(
     { _id: ObjectId("6406ad63fc13ae5a40000065") },
     {$pull:  {languages:"hjk"}} // remove hjk from array language
 )
+
+db.practice_q.updateOne(
+    { email: "mdangl1@odnoklassniki.ru" },
+    {
+        $pull: {
+            skills: {
+                name: "C#" // delete a object from an array
+            }
+        }
+    }
+)
+
 
 // `$pillAll`delete all matching value
 db.practice_q.updateOne(
