@@ -100,25 +100,88 @@ db.practice_q.aggregate(
                 count: { $sum: 1 },
                 fullDoc: { $push: "$$ROOT" }
             },
-           { $project: { "fullDoc.name": 1, "fullDoc.phone":1 } }
+           { $project:
+                {
+                    "fullDoc.name": 1,
+                    "fullDoc.phone":1
+                }
+            }
+        }
+    ]
+)
+```
+
+- `_id:null` means only one document which helps to calculate total `$sum`
+
+```mongodb
+db.practice_q.aggregate(
+    [
+        {
+            $group: { _id: null ,
+            totalSalary: { $sum: "$age" }
+            }
+
+        }
+    ]
+)
+
+
+```
+
+- `$max, $min, $avg, $subtract ` operator
+
+```mongodb
+.practice_q.aggregate(
+    [
+        {
+            $group: {
+                _id: null,
+                totalSalary: { $sum: "$salary" },
+                maxSalary: { $max: "$salary" }, // $max operator
+                minSalary: { $min: "$salary" }, // $min operator
+                avgSalary: { $avg: "$salary" }, // $avg operator
+            }
+        },
+        {
+            $project: {
+                totalSalary: 1,
+                maxSalary: 1,
+                minSalary: 1,
+                averageSalary: "$avgSalary", // change field name
+                subBetweenMaxAndMinSalary: { $subtract: [ "$maxSalary", "$minSalary"] }  // $subtract operator
+            }
+        }
+    ]
+)
+```
+
+- You cannot work directly on the elements of an array within a document with stages such as $group.
+- The `$unwind` stage enables us to work with the values of the fields within an array.
+
+```mongodb
+db.practice_q.aggregate(
+    [
+        { $match: { email: "cpeaker5@nationalgeographic.com" } },
+        {
+            $unwind: "$skills" //
         }
     ]
 )
 ```
 
 ```mongodb
-
-```
-
-```mongodb
-
-```
-
-```mongodb
-
-```
-
-```mongodb
+db.practice_q.aggregate(
+    [
+        // stage 1
+        {
+            $unwind: "$friends" // breaks array operator to signle value
+        },
+        // stage 2
+        {
+            $group: { _id: "$friends", count:{$sum:1}}
+        }
+    ]
+)
 
 ```
 
