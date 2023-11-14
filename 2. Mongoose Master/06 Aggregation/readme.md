@@ -248,6 +248,81 @@ db.practice_q.aggregate(
 
 ```
 
+- `$facet` lets you run several independent pipelines within the stage of a pipeline, all using the same data.
+
+```mongodb
+db.practice_q.aggregate(
+    [
+        {
+            $facet: {
+                // pipeline 1
+                "friendsCount": [
+                    // stage 1
+                    { $unwind: "$friends" },
+                    //stage 2
+                    {
+                        $group: {
+                            _id: "$friends",
+                            count: { $sum: 1 }
+                        }
+                    }
+                ],
+                // pipeline 2
+                "educationCount": [
+                    // stage 1
+                    { $unwind: "$education" },
+                    // stage 2
+                    {
+                        $group: {
+                            _id: "$education",
+                            count: { $sum: 1 }
+                        }
+                    }
+                ],
+                // pipeline 3
+                "skillsCount": [
+                    // stage 1
+                    { $unwind: "$skills" },
+                    // stage 2
+                    {
+                        $group: {
+                            _id: "$skills",
+                            count: { $sum: 1 }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+)
+
+
+```
+
+./assets/image/re
+
+- ### create indexing
+
+* single field indexing
+
+```mongodb
+db.getCollection("massive-data-collection").createIndex({email:1})
+
+// there are multiple indexing
+// search index
+// first create a index {about:"text"}
+
+db.getCollection("massive-data-collection").find({
+    $text: {
+        $search: "dolor"
+    }
+})
+```
+
+```mongodb
+
+```
+
 ```mongodb
 
 ```
