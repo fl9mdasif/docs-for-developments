@@ -4,11 +4,14 @@
 
 ### Today we are going to learn about the `$match, $addFields, $out, $merge, $$`
 
-1. [$mach](#$match)
-   - [$addFields](#$addfields)
+1. [$match](#$match)
+   - [$project]($project)
+2. [$addFields](#$addfields) -
+
    - [$merge](#$merge)
-2. []()
-3. []()
+   - [$out]($out)
+
+3. [$group, $sum](#$group-$sum)
 4. []()
 5. []()
 6. []()
@@ -16,10 +19,13 @@
 8. []()
 9. []()
 10. []()
+11. []()
 
 ### $match
 
 - `$match` Filters the documents to pass only the documents that match the specified condition(s) to the next pipeline stage.
+
+### $project
 
 ```mongodb
 db.practice_q.aggregate(
@@ -60,6 +66,8 @@ db.practice_q.aggregate(
 )
 ```
 
+### $out
+
 - `$out` Takes the documents returned by the aggregation ⬆️⬆️ pipeline and writes them to a specified collection. means push data to a new collection.
 - if there are project stage then just push these values into new collection
 
@@ -76,6 +84,8 @@ db.practice_q.aggregate(
 
 ```
 
+### $group $sum
+
 - The `$group` stage separates documents into groups according to a "group key".
 
 This `$group, $count` counts the same different ages
@@ -89,6 +99,8 @@ db.practice_q.aggregate(
 
 
 ```
+
+### $push
 
 - `$push` push to a new field to return data
 
