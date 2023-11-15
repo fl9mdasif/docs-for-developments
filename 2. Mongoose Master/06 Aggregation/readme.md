@@ -4,12 +4,12 @@
 
 ### Today we are going to learn about the `$match, $addFields, $out, $merge, $$`
 
-1. [$match](#$match)
-   - [$project]($project)
-2. [$addFields](#$addfields) -
+1. [$match](#match)
+   - [$project](#project)
+2. [$addFields](#addfields) -
 
-   - [$merge](#$merge)
-   - [$out]($out)
+   - [$merge](#merge)
+   - [$out](#out)
 
 3. [$group, $sum](#$group-$sum)
 4. []()
@@ -21,11 +21,11 @@
 10. []()
 11. []()
 
-### $match
+### match
 
 - `$match` Filters the documents to pass only the documents that match the specified condition(s) to the next pipeline stage.
 
-### $project
+### project
 
 ```mongodb
 db.practice_q.aggregate(
@@ -36,7 +36,7 @@ db.practice_q.aggregate(
 )
 ```
 
-### $addFields
+### addFields
 
 - `$addFields` Adds new fields to documents. $addFields outputs documents that contain all existing fields from the input documents and newly added fields.
 
@@ -51,7 +51,7 @@ db.practice_q.aggregate(
 
 ```
 
-### $merge
+### merge
 
 - It doesn't modify the existing document with new filed. to do that we could use `$merge` operator to update existing document
 
