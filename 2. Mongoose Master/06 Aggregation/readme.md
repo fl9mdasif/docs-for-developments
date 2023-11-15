@@ -4,6 +4,10 @@
 
 ### Today we are going to learn about the `$match, $addFields, $out, $merge, $$`
 
+[$mach](#match)
+
+### match
+
 - `$match` Filters the documents to pass only the documents that match the specified condition(s) to the next pipeline stage.
 
 ```mongodb
