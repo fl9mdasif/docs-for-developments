@@ -4,9 +4,20 @@
 
 ### Today we are going to learn about the `$match, $addFields, $out, $merge, $$`
 
-[$mach](#match)
+1. [$mach](#$match)
+   - [$addFields](#$addfields)
+   - [$merge](#$merge)
+2. []()
+3. []()
+4. []()
+5. []()
+6. []()
+7. []()
+8. []()
+9. []()
+10. []()
 
-### match
+### $match
 
 - `$match` Filters the documents to pass only the documents that match the specified condition(s) to the next pipeline stage.
 
@@ -18,6 +29,8 @@ db.practice_q.aggregate(
     ]
 )
 ```
+
+### $addFields
 
 - `$addFields` Adds new fields to documents. $addFields outputs documents that contain all existing fields from the input documents and newly added fields.
 
@@ -31,6 +44,8 @@ db.practice_q.aggregate(
 )
 
 ```
+
+### $merge
 
 - It doesn't modify the existing document with new filed. to do that we could use `$merge` operator to update existing document
 
