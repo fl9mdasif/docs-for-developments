@@ -7,19 +7,16 @@
 1. [$match](#match)
    - [$project](#project)
 2. [$addFields](#addfields) -
-
    - [$merge](#merge)
    - [$out](#out)
-
-3. [$group, $sum](#$group-$sum)
-4. []()
-5. []()
-6. []()
-7. []()
+3. [$group, $sum](#group-sum)
+4. [more group project](#group-project)
+5. [$unwind](unwind)
+6. [$bucket](bucket)
+7. [$facet](facet)
 8. []()
 9. []()
-10. []()
-11. []()
+10. [create indexing](create-indexing)
 
 ### match
 
@@ -66,7 +63,7 @@ db.practice_q.aggregate(
 )
 ```
 
-### $out
+### out
 
 - `$out` Takes the documents returned by the aggregation ⬆️⬆️ pipeline and writes them to a specified collection. means push data to a new collection.
 - if there are project stage then just push these values into new collection
@@ -84,7 +81,7 @@ db.practice_q.aggregate(
 
 ```
 
-### $group $sum
+### group sum
 
 - The `$group` stage separates documents into groups according to a "group key".
 
@@ -100,7 +97,7 @@ db.practice_q.aggregate(
 
 ```
 
-### $push
+### push
 
 - `$push` push to a new field to return data
 
@@ -159,6 +156,8 @@ db.practice_q.aggregate(
 
 ```
 
+### group project
+
 - `$max, $min, $avg, $subtract ` operator
 
 ```mongodb
@@ -185,6 +184,8 @@ db.practice_q.aggregate(
     ]
 )
 ```
+
+### unwind
 
 - You cannot work directly on the elements of an array within a document with stages such as $group.
 - The `$unwind` stage enables us to work with the values of the fields within an array.
@@ -232,6 +233,8 @@ db.practice_q.aggregate(
 
 ```
 
+### bucket
+
 - `$bucket` operator checks value between given value. crates a boundary
 
 ```mongodb
@@ -278,6 +281,8 @@ db.practice_q.aggregate(
 )
 
 ```
+
+### facet
 
 - `$facet` lets you run several independent pipelines within the stage of a pipeline, all using the same data.
 
