@@ -26,10 +26,43 @@ db.getCollection("massive-data-collection").aggregate([
 - ### Question 3: Find the average age of individuals for each favorite fruit, then sort the results in descending order of average age.
 
 ```mongodb
+db.getCollection("massive-data-collection").aggregate([
+    {
+        $group: {
+            _id: "$favoriteFruit",
+            count:{$sum:1},
+            avgAge: {$avg:"$age" }
+        }
+    },
+    {$sort: {avgAge:-1}}
+
+])
 
 ```
 
+### 4
+
 ```mongodb
+db.getCollection("massive-data-collection").aggregate([
+    {
+        $match: {
+            friends: { $exists: true, $ne: [] }
+        }
+    },
+    {
+        $unwind: "$friends"
+    },
+    {
+        $match: {
+            "friends.name": /^W/
+        }
+    },
+    {
+        $group: {
+            _id: "$friends.name"
+        }
+    }
+])
 
 ```
 
