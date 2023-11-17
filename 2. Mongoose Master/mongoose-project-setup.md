@@ -19,15 +19,15 @@
 4. npm install typescript --save-dev
 5. npm install cors
 6. npm install dotenv
-   - dotenv config in 'src/app/index.ts'
+   - dotenv config in `src/app/config/index.ts`
 7. tsc --init
 
    - change package.json "build":"tsc"
-   - config tsc (rootDir:"src" & outDir:"dist")
+   - config tsc `rootDir:"src" & outDir:"dist"`
    - tsc
-   - node dist/app.js
+   - run app with `node dist/app.js`
 
-8. setup app.ts & server.ts
+8. setup `app.ts` & `server.ts`
 9. [es-lint & prettier setup](#es-lint-setup)
 10. [prettier-setup](#prettier-setup)
 
@@ -106,7 +106,7 @@ npm install --save-dev prettier
 
 - then check the script `npm run prettier & npm run prettier-fix`
 
-4. add some script to vs code `setting.json`
+4. add some script into vs code `setting.json`
 
 ```json
 {
@@ -115,7 +115,7 @@ npm install --save-dev prettier
 }
 ```
 
-5. The best solution here is to use the eslint-config-prettier plugin to disable all ESLint rules that are irrelevant to code formatting, as Prettier is already good at it:
+5. The best solution here is to use the eslint-config-prettier plugin to disable all ESLint rules that are irrelevant to code formatting, as Prettier is already good at it: install
 
 ```bash
 npm install --save-dev eslint-config-prettier
