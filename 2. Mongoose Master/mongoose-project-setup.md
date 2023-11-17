@@ -37,13 +37,13 @@
 
 - es lint setup
 
-1. install this
+1. install this for eslint
 
 ```bash
 npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
 ```
 
-2.
+2. then install
 
 ```bash
 npx eslint --init
