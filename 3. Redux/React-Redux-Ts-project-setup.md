@@ -31,7 +31,7 @@ plugins: [],
 
 ```
 
-3. install `Redux toolkit` and wrap the `main.ts` file with Provider
+3. install `[Redux toolkit](https://redux-toolkit.js.org/rtk-query)` and wrap the `main.ts` file with Provider
 
 ```npm
 npm install @reduxjs/toolkit react-redux
