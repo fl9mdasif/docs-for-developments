@@ -13,3 +13,7 @@
 
 - git reset 23j4ja --soft (files won't loss, just delete the commit from github origin after `23j4ja`)
 - git reset 5u3j4ja --hard (delete everything after `5u3j4ja`this commit from local machine)
+
+### delete doc after push a commit `revert`
+
+- git revert j12e35h (it will revert the commit )
