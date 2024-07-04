@@ -17,3 +17,4 @@
 ### delete doc after push a commit `revert`
 
 - git revert j12e35h (it will revert the commit )
+- git revert --abort (abort the revert)
